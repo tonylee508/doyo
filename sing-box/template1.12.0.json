@@ -24,8 +24,10 @@
     ],
     "rules": [
       {"outbound": "any", "server": "localDns", "disable_cache": true},
+      {"rule_set": "geosite-cn", "server": "localDns"},
+      {"clash_mode": "direct", "server": "localDns"},
       {"clash_mode": "global", "server": "proxyDns"},
-      {"rule_set": "geoip-geolocation-!cn", "server": "proxyDns"}
+      {"rule_set": "geosite-geolocation-!cn", "server": "proxyDns"}
     ],
     "final": "localDns",
     "strategy": "ipv4_only"
@@ -87,39 +89,186 @@
   ],
   
   "route": {
-    "auto_detect_interface": true,
-    "final": "Final",
-    "rules": [
-      { "type": "logical", "mode": "or", "rules": [{ "port": 53 }, { "protocol": "dns" }], "outbound": "dns-out" },
-      { "clash_mode": "direct", "outbound": "直连" },
-      { "clash_mode": "global", "outbound": "GLOBAL" },
-      { "domain_suffix": ["git.doyokey.eu.org", "mobgi.com", "btschool.club", "oceanengine.com", "bytegoofy.com", "bytescm.com", "byteadverts.com", "bytecdntp.com", "ibytedapm.com", "bytednsdoc.com", "bytehwm.com", "byteimg.com", "byted-static.com", "zijieapi.com", "edge-byted.com", "byteacctimg.com"], "outbound": "直连" },
-      { "domain_suffix": ["serv00.net", "madouqu.com", "duckduckgo.com", "metacubex.one"], "outbound": "默认" },
-      { "ip_is_private": true, "outbound": "直连" },
-      { "rule_set": "geoip-openai", "outbound": "OpenAI" },
-      { "rule_set": "geoip-youtube", "outbound": "YouTube" },
-      { "rule_set": "geoip-google", "outbound": "Google" },
-      { "rule_set": "geoip-github", "outbound": "默认" },
-      { "rule_set": "geoip-docker", "outbound": "默认" },
-      { "rule_set": "geoip-telegram", "outbound": "Telegram" },
-      { "rule_set": "geoip-netflix", "outbound": "Netflix" },
-      { "rule_set": ["geoip-apple", "outbound": "Apple" },
-      { "rule_set": "geoip-microsoft", "outbound": "Microsoft" },      
-      { "rule_set": ["geoip-cn", "outbound": "直连" }
-    ],
-    
-    "rule_set": [
-      { "tag": "geoip-openai", "type": "remote", "format": "binary", "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/OpenAI.srs", "download_detour": "直连" },
-      { "tag": "geoip-youtube", "type": "remote", "format": "binary", "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/youtube.srs", "download_detour": "直连" },
-      { "tag": "geoip-google", "type": "remote", "format": "binary", "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/google.srs", "download_detour": "直连" },
-      { "tag": "geoip-github", "type": "remote", "format": "binary", "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/github.srs", "download_detour": "直连" },
-      { "tag": "geoip-docker", "type": "remote", "format": "binary", "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/docker.srs", "download_detour": "直连" },
-      { "tag": "geoip-telegram", "type": "remote", "format": "binary", "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/telegram.srs", "download_detour": "直连" },
-      { "tag": "geoip-netflix", "type": "remote", "format": "binary", "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/netflix.srs", "download_detour": "直连" },
-      { "tag": "geoip-apple", "type": "remote", "format": "binary", "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo-lite/geoip/apple.srs", "download_detour": "直连" },
-      { "tag": "geoip-apple", "type": "remote", "format": "binary", "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/apple.srs", "download_detour": "直连" },
-      { "tag": "geoip-microsoft", "type": "remote", "format": "binary", "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/microsoft.srs", "download_detour": "直连" },
-      { "tag": "geoip-cn", "type": "remote", "format": "binary", "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs", "download_detour": "直连" }
-    ]
-  }
+  "auto_detect_interface": true,
+  "final": "Final",
+  "rules": [
+    {
+      "type": "logical",
+      "mode": "or",
+      "rules": [
+        {
+          "port": 53
+        },
+        {
+          "protocol": "dns"
+        }
+      ],
+      "outbound": "dns-out"
+    },
+    {
+      "clash_mode": "direct",
+      "outbound": "直连"
+    },
+    {
+      "clash_mode": "global",
+      "outbound": "GLOBAL"
+    },
+    {
+      "domain_suffix": [
+        "git.doyokey.eu.org",
+        "mobgi.com",
+        "btschool.club",
+        "oceanengine.com",
+        "bytegoofy.com",
+        "bytescm.com",
+        "byteadverts.com",
+        "bytecdntp.com",
+        "ibytedapm.com",
+        "bytednsdoc.com",
+        "bytehwm.com",
+        "byteimg.com",
+        "byted-static.com",
+        "zijieapi.com",
+        "edge-byted.com",
+        "byteacctimg.com"
+      ],
+      "outbound": "直连"
+    },
+    {
+      "domain_suffix": [
+        "serv00.net",
+        "madouqu.com",
+        "duckduckgo.com",
+        "metacubex.one"
+      ],
+      "outbound": "默认"
+    },
+    {
+      "ip_is_private": true,
+      "outbound": "直连"
+    },
+    {
+      "rule_set": "geoip-openai",
+      "outbound": "OpenAI"
+    },
+    {
+      "rule_set": "geoip-youtube",
+      "outbound": "YouTube"
+    },
+    {
+      "rule_set": "geoip-google",
+      "outbound": "Google"
+    },
+    {
+      "rule_set": "geoip-github",
+      "outbound": "默认"
+    },
+    {
+      "rule_set": "geoip-docker",
+      "outbound": "默认"
+    },
+    {
+      "rule_set": "geoip-telegram",
+      "outbound": "Telegram"
+    },
+    {
+      "rule_set": "geoip-netflix",
+      "outbound": "Netflix"
+    },
+    {
+      "rule_set": "geoip-apple",
+      "outbound": "Apple"
+    },
+    {
+      "rule_set": "geoip-microsoft",
+      "outbound": "Microsoft"
+    },
+    {
+      "rule_set": "geoip-geolocation-!cn",
+      "outbound": "默认"
+    },
+    {
+      "rule_set": "geoip-cn",
+      "outbound": "直连"
+    }
+  ],
+  "rule_set": [
+    {
+      "tag": "geoip-openai",
+      "type": "remote",
+      "format": "binary",
+      "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/OpenAI.srs",
+      "download_detour": "直连"
+    },
+    {
+      "tag": "geoip-youtube",
+      "type": "remote",
+      "format": "binary",
+      "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/youtube.srs",
+      "download_detour": "直连"
+    },
+    {
+      "tag": "geoip-google",
+      "type": "remote",
+      "format": "binary",
+      "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/google.srs",
+      "download_detour": "直连"
+    },
+    {
+      "tag": "geoip-github",
+      "type": "remote",
+      "format": "binary",
+      "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/github.srs",
+      "download_detour": "直连"
+    },
+    {
+      "tag": "geoip-docker",
+      "type": "remote",
+      "format": "binary",
+      "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/docker.srs",
+      "download_detour": "直连"
+    },
+    {
+      "tag": "geoip-telegram",
+      "type": "remote",
+      "format": "binary",
+      "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/telegram.srs",
+      "download_detour": "直连"
+    },
+    {
+      "tag": "geoip-netflix",
+      "type": "remote",
+      "format": "binary",
+      "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/netflix.srs",
+      "download_detour": "直连"
+    },
+    {
+      "tag": "geoip-apple",
+      "type": "remote",
+      "format": "binary",
+      "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo-lite/geoip/apple.srs",
+      "download_detour": "直连"
+    },
+    {
+      "tag": "geoip-microsoft",
+      "type": "remote",
+      "format": "binary",
+      "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/microsoft.srs",
+      "download_detour": "直连"
+    },
+    {
+      "tag": "geoip-geolocation-!cn",
+      "type": "remote",
+      "format": "binary",
+      "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/geolocation-!cn.srs",
+      "download_detour": "直连"
+    },
+    {
+      "tag": "geoip-cn",
+      "type": "remote",
+      "format": "binary",
+      "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs",
+      "download_detour": "直连"
+    }
+  ]
 }
