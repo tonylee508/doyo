@@ -43,7 +43,7 @@
         "rewrite_ttl": 1
       },
       {
-        "rule_set": "cn_domain",
+        "rule_set": "geosite-cn",
         "action": "route",
         "server": "localDns"
       }
