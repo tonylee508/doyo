@@ -61,7 +61,6 @@
       ],
       "mtu": 9000,
       "auto_route": true,
-      "sniff": true,
       "endpoint_independent_nat": false,
       "stack": "system",
       "platform": {
@@ -76,7 +75,6 @@
       "type": "mixed",
       "listen": "0.0.0.0",
       "listen_port": 7890,
-      "sniff": true,
       "users": []
     }
   ],
@@ -106,6 +104,7 @@
     "final": "Final",
     "default_domain_resolver": "localDns",
     "rules": [
+      { "action": "sniff", "sniffer": ["http", "tls", "quic", "dns"], "timeout": "500ms" },
       { "type": "logical", "mode": "or", "rules": [{ "port": 53 }, { "protocol": "dns" }], "action": "hijack-dns" },
       { "clash_mode": "direct", "action": "route", "outbound": "直连" },
       { "clash_mode": "global", "action": "route", "outbound": "GLOBAL" },
